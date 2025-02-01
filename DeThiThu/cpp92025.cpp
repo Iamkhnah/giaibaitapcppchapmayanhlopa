@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <cstdint>
+
 using namespace std;
 int noname(vector<int> ar, int n, int tar) {
     vector<int> result;
@@ -14,15 +16,14 @@ int noname(vector<int> ar, int n, int tar) {
         result.push_back(count);
     }
     int min = INT32_MAX;
-    // tim cai nho nhat
-    for (int i = 0; i < result.size(); i++) {
+    for (size_t i = 0; i < result.size(); i++) {
         if (result[i] < min) {
             min = result[i];
         }
     }
     return abs(min - tar + 1);
 }
-// do phuc tap O(2^n)
+
 int main() {
     freopen("DECOR.inp", "r", stdin);
     freopen("DECOR.out", "w", stdout);
@@ -51,15 +52,16 @@ int main() {
         if (x < 1) return 0;
         if (x > c) return 0;
         int n1 = n / k + 1;
-        // cout << "Debug: " << n1 << endl;
+
         vector<vector<int>> ar(n1, vector<int>(k, 0));
+
         for (int i = 0; i < n1; i++) {
-            for (int j = i; j < n - k + i; j++) {
-                ar[v][i] = gg[j];
+            for (int j = 0; j < k && (i * k + j) < n; j++) {
+                ar[i][j] = gg[i * k + j];
             }
         }
-        int noideaname = noname(ar[v], n1, x);
+       int noideaname = noname(ar[v], n1, x);
         cout << noideaname << endl;
     }
-    return 0; // ko dung chat gpt nen code se hoi ngu va do phuc tap cao
+    return 0; // ko dung chat gpt nen code se hoi ngu
 }
